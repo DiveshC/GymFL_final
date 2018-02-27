@@ -15,6 +15,7 @@ import static android.provider.Settings.Global.getString;
 
 
 public class exercise {
+
     private String[] chest = {
             "Bench Press",
             "Inclined Bench Press",

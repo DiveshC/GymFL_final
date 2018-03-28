@@ -1,0 +1,7 @@
+<application>
+  <component name="FileTypeManager" version="17">
+    <extensionMap>
+      <mapping pattern="spinner_item" type="XML" />
+    </extensionMap>
+  </component>
+</application>

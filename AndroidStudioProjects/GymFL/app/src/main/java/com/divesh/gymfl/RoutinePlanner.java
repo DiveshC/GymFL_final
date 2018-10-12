@@ -1,74 +1,133 @@
 package com.divesh.gymfl;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class RoutinePlanner extends AppCompatActivity {
-    private Spinner WorkoutOptions;
-    private Spinner WorkoutOptions2;
-    private Spinner WorkoutOptions3;
-    private Spinner WorkoutOptions4;
-    private Spinner WorkoutOptions5;
-    private Spinner WorkoutOptions6;
-    private Spinner WorkoutOptions7;
-    private Button updater;
-    String[] Schedule={"Rest","Rest","Rest","Rest","Rest","Rest","Rest"};
+
+
+
+
+    private ImageButton backButton;
+
+    private SectionPageAdapter mSectionPageAdapter;
+    private ViewPager mViewPager;
+    private LockableViewPager mLockableViewPager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Context mContext = getApplicationContext();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_planner);
-        updater= (Button) findViewById(R.id.update);
-        WorkoutOptions = (Spinner) findViewById(R.id.routine_spinner);
-        WorkoutOptions2 = (Spinner) findViewById(R.id.routine_spinner2);
-        WorkoutOptions3 = (Spinner) findViewById(R.id.routine_spinner3);
-        WorkoutOptions4 = (Spinner) findViewById(R.id.routine_spinner4);
-        WorkoutOptions5 = (Spinner) findViewById(R.id.routine_spinner5);
-        WorkoutOptions6 = (Spinner) findViewById(R.id.routine_spinner6);
-        WorkoutOptions7 = (Spinner) findViewById(R.id.routine_spinner7);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.workoutOptions, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        WorkoutOptions.setAdapter(adapter);
-        WorkoutOptions2.setAdapter(adapter);
-        WorkoutOptions3.setAdapter(adapter);
-        WorkoutOptions4.setAdapter(adapter);
-        WorkoutOptions5.setAdapter(adapter);
-        WorkoutOptions6.setAdapter(adapter);
-        WorkoutOptions7.setAdapter(adapter);
+        //fragments
+        mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
+//        mViewPager = (ViewPager) findViewById(R.id.container);
+        mLockableViewPager = (LockableViewPager) findViewById(R.id.container);
+        mLockableViewPager.setSwipeable(true);
 
-        //when update button is clicked
-        View.OnClickListener Listener = new View.OnClickListener(){
+        backButton = (ImageButton) findViewById(R.id.back);
+
+
+
+
+        View.OnClickListener backListener = new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Schedule[0] = WorkoutOptions.getSelectedItem().toString();
-                Schedule[1] = WorkoutOptions2.getSelectedItem().toString();
-                Schedule[2] = WorkoutOptions3.getSelectedItem().toString();
-                Schedule[3] = WorkoutOptions4.getSelectedItem().toString();
-                Schedule[4] = WorkoutOptions5.getSelectedItem().toString();
-                Schedule[5] = WorkoutOptions6.getSelectedItem().toString();
-                Schedule[6] = WorkoutOptions7.getSelectedItem().toString();
-                updateScheduler();
+            public void onClick(View v) {
+                mLockableViewPager.setCurrentItem(0);
             }
         };
-        updater.setOnClickListener(Listener);
+
+        backButton.setOnClickListener(backListener);
+
+        setupViewPager(mLockableViewPager);
+        //navigation fragment opens first
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            int val = bundle.getInt("key");
+            if (val == 3) {
+                mLockableViewPager.setCurrentItem(3);
+            }
+        }else{
+            mLockableViewPager.setCurrentItem(0);
+        }
+
+
+
+
+
+
+
+        //bottom nav
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_AddExercise:
+                                openAddExercise();
+                                break;
+                            case R.id.action_routine:
+                                break;
+                            case R.id.action_MainActivity:
+                                openHome();
+                                break;
+                        }
+                        return true;
+                    }
+                });
+
+
+
+
     }
 
-    private void updateScheduler() {
-        Intent intent = new Intent(this, MainActivity.class);
-        Resources resources = getResources();
-        String[] key = resources.getStringArray(R.array.key_schedule);
-        Bundle bundle = new Bundle();
-        bundle.putStringArray("MyArray", Schedule);
-        intent.putExtras(bundle);
+    public void setupViewPager(ViewPager viewPager){
+        SectionPageAdapter sectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
+        sectionPageAdapter.addFragment(new fragment_navigation());
+        sectionPageAdapter.addFragment(new fragment_schedule());
+        sectionPageAdapter.addFragment(new fragment_gcalendar());
+        sectionPageAdapter.addFragment(new fragment_goals());
+
+        viewPager.setAdapter(sectionPageAdapter);
+    }
+
+    public void setViewPager(int position){
+        mLockableViewPager.setCurrentItem(position);
+    }
+
+
+    private void openHome() {
+        Intent intent = new Intent(RoutinePlanner.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    //start add exercise activity
+
+    private void openAddExercise(){
+        Intent intent2 = new Intent(RoutinePlanner.this, AddExercises.class);
+        startActivity(intent2);
     }
 
 }

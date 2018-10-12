@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/armata</item>
+        <item>@font/bungee_inline</item>
+        <item>@font/comfortaa_light</item>
+        <item>@font/krona_one</item>
+        <item>@font/monoton</item>
+        <item>@font/montserrat</item>
+        <item>@font/raleway</item>
+        <item>@font/raleway_medium</item>
+        <item>@font/raleway_thin</item>
+        <item>@font/roboto_thin</item>
+    </array>
+</resources>

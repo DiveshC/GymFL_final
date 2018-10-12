@@ -1,7 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/Arms"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:background="@drawable/biceps_cropped"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/arms"
+        android:textColor="@color/colorDarkGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <Button
+        android:id="@+id/Chest"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:background="@drawable/chest_poster_cropped"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/chest"
+        android:textColor="@color/colorDarkGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Arms"/>
+
+            <Button
+                android:id="@+id/Cardio"
+                android:layout_width="400dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@drawable/heart_cropped"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/cardio"
+                android:textColor="@color/colorDarkGrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Chest"/>
+            <Button
+                android:id="@+id/Core"
+                android:layout_width="400dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@drawable/core_poster_cropped"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/core"
+                android:textColor="@color/colorDarkGrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Cardio"/>
+
+    <Button
+        android:id="@+id/Back"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:background="@drawable/back_poster_cropped"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/back"
+
+        android:textColor="@color/colorDarkGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Core"/>
+
+    <Button
+        android:id="@+id/Legs"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:background="@drawable/legs_cropped"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/legs"
+
+        android:textColor="@color/colorDarkGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Back"/>
+
+
+            <Button
+                android:id="@+id/Sports"
+                android:layout_width="400dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:background="@drawable/sports_poster_cropped"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/sports"
+                android:textColor="@color/colorDarkGrey"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Legs"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>
